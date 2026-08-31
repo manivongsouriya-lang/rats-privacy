@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rats — Privacy Policy</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#15202b;--muted:#5b6672;--brand:#001E4F;--accent:#2563EB;--border:#e4e8ee}
+@media (prefers-color-scheme:dark){:root{--bg:#0c1420;--card:#111c2b;--ink:#e7edf5;--muted:#9fb0c3;--brand:#8fb2ff;--accent:#6ea0ff;--border:#22344a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px}
+header a{color:var(--accent);text-decoration:none;font-weight:600;font-size:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:16px}
+h1{color:var(--brand);font-size:28px;line-height:1.2;margin:.2em 0 .4em}
+h2{font-size:20px;margin:1.6em 0 .5em;border-top:1px solid var(--border);padding-top:1.1em}
+h3{font-size:16px;margin:1.3em 0 .3em}
+h2:first-of-type{border-top:none;padding-top:0}
+a{color:var(--accent)}
+code{background:rgba(127,127,127,.14);padding:.1em .35em;border-radius:5px;font-size:.9em}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto;margin:1em 0}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;font-size:14px}
+th{background:rgba(127,127,127,.08)}
+strong{color:var(--ink)}
+.muted{color:var(--muted);font-size:14px}
+hr{border:none;border-top:1px solid var(--border);margin:2em 0}
+footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
+footer a{margin:0 8px}
+</style>
+</head><body><div class="wrap">
+<header><a href="./">&larr; Rats policies</a></header>
+<div class="card">
+<h1>Rats — Privacy Policy</h1>
+<p><strong>Last updated: August 31, 2026</strong>
+<strong>Status: Public beta</strong></p>
+<p>Rats ("Rats," "we," "us") is a skatepark stampbook and social app for
+skateboarders. This policy describes exactly what the app collects, why,
+where it goes, and how you control it. It is written to match what the code
+actually does. Where a practice needs a lawyer's review before public
+launch it is marked <strong>[ATTORNEY REVIEW REQUIRED]</strong>.</p>
+<p>Rats is a free beta. It has no ads, no advertising SDKs, and no third-party
+analytics or tracking SDKs. We do not sell your data.</p>
+<h2>1. Who is responsible for your data</h2>
+<p>The Rats app team is the data controller. Our infrastructure provider
+(Supabase) is a data processor acting on our instructions. <strong>[ATTORNEY
+REVIEW REQUIRED]</strong> — confirm the controlling legal entity, business address,
+and a monitored contact address before launch, and whether an EU/UK
+representative or DPA is required for your user base.</p>
+<h2>2. What we collect and why</h2>
+<p><strong>Account information — email address and username.</strong>
+Your email is used only for authentication (sign-in, email confirmation,
+password reset). It is stored by our authentication provider (Supabase Auth)
+and is never shown to other users. Your username and (optional) display name,
+bio, and profile photo are shown to other signed-in users.
+<em>Stored in:</em> <code>auth.users</code> (email), <code>public.profiles</code> (username, display name,
+bio, avatar URL).</p>
+<p><strong>Location — precise device GPS, used at the moment of an action.</strong>
+Rats uses your device's location to:
+- verify you are physically at a skatepark before you can "stamp" it or post
+  a clip there (a ~150–200 meter geofence check);
+- count a park visit toward "Local" status (you become a Local after 15
+  separate visits, each at least 18 hours apart) — checked only while the app
+  is open in the foreground;
+- detect the park you are at so you can join its battle queue;
+- show nearby parks on the map and, with your permission, center the map on
+  you.</p>
+<p>We store the coordinate captured at the instant you stamp, post, or log a
+visit, as anti-cheat evidence that the action really happened at the park.
+<strong>These precise coordinates are never exposed through the app's API to other
+users</strong> — a public check-in reveals the skatepark, not your exact position.
+The raw visit-location log is readable only by you. We do not run any
+continuous or background location tracking.
+<em>Stored in:</em> <code>stamps.checkin_location</code>, <code>posts.author_location</code>,
+<code>park_visits.checkin_location</code>. Coordinates are also sent to Google (see §4)
+to render maps and, for a new park submission, to look up an address.</p>
+<p><strong>Photos and videos you choose to upload.</strong> Skate clips (video), profile
+pictures, park-submission photos, and optional bug-report screenshots. The
+app only ever accesses the single file you actively pick; it does not scan or
+upload your library in the background. Before upload, we re-encode images to
+strip embedded metadata, including any GPS coordinates in the photo's EXIF.
+<em>Stored in:</em> Supabase Storage buckets (<code>posts</code>, <code>avatars</code>, <code>parks</code>,
+<code>bug-screenshots</code>). Uploaded media is served from public, unguessable URLs so
+it can appear in the feed. <strong>[ATTORNEY REVIEW REQUIRED]</strong> — see note on video
+metadata in §8.</p>
+<p><strong>Content you create.</strong> Captions, comments, your bio, stamps, follows,
+blocks, mutes, battle records, and crowns. These power the social features
+and are shown to other signed-in users according to your settings.</p>
+<p><strong>Push notification token.</strong> If you enable notifications, we store a device
+push token so we can send banners for likes, comments, follows, mentions, and
+battle/park events. Turning any notification type off in Edit Profile stops
+the underlying notification from being generated at all — not just hidden.
+<em>Stored in:</em> <code>push_tokens</code> (readable only by you).</p>
+<p><strong>Bug reports.</strong> If you submit one, we store your description, your device OS
+and version, and any screenshot you attach.</p>
+<p><strong>Technical/server logs.</strong> Like any hosted service, our provider (Supabase)
+and Google process your IP address and basic request metadata to deliver the
+service and for security. We do not use this for advertising or profiling.</p>
+<p>We deliberately do <strong>not</strong> collect: date of birth, phone number, contacts,
+precise background location, advertising identifiers, or behavioral analytics.</p>
+<h2>3. How we use your information</h2>
+<p>Only to operate the app's features: verifying park visits, showing your
+content to the people you have chosen to share it with, sending notifications
+you opted into, ranking Locals/Rat Kings, and reviewing reported content for
+safety. We do not use your data for advertising and do not sell it.</p>
+<h2>4. Third parties who receive data</h2>
+<ul>
+<li><strong>Supabase</strong> — our database, file storage, and authentication provider
+  (data processor). Receives everything above as our backend.</li>
+<li><strong>Google Maps / Places</strong> — receives location coordinates and address text
+  to render maps and resolve park addresses. Governed by Google's own
+  privacy policy. The address-lookup call is proxied through our server so
+  our Google API key is not exposed.</li>
+<li><strong>Expo / Apple Push (APNs) / Google (FCM)</strong> — deliver push notifications
+  when you enable them; they receive your push token and the notification
+  content.</li>
+</ul>
+<p>We do not share your data with any other third party, and none of these are
+permitted to use it for their own purposes beyond providing their service.
+<strong>[ATTORNEY REVIEW REQUIRED]</strong> — confirm each processor's terms/DPA and
+disclose any additional sub-processors before launch.</p>
+<h2>5. Your controls and rights</h2>
+<p>In the app you can: edit or delete your bio, avatar, posts, and comments;
+choose who can comment on your posts; make your battle log private; block or
+mute other users; and turn off any notification type.</p>
+<p><strong>Account and data deletion.</strong> Edit Profile → Delete my account (confirmed
+with your password) immediately: deletes your posts, comments, likes,
+follows, blocks, mutes, stamps, visit history, push tokens, and uploaded
+files; anonymizes your profile to a non-identifying placeholder so other
+players' battle history stays intact; and disables your login so it can never
+be used again. This cannot be undone.</p>
+<p>Depending on where you live, you may have rights to access, correct, delete,
+or export your data, or to object to processing. You can exercise most of
+these in-app; for anything else, contact us (§9). <strong>[ATTORNEY REVIEW
+REQUIRED]</strong> — GDPR/UK GDPR/CCPA-CPRA specifics, verification process, and
+response timelines.</p>
+<h2>6. Data retention</h2>
+<p>Content is retained until you delete it or delete your account. On account
+deletion, personal data is removed or anonymized as described in §5. Server
+security logs are retained by our provider for a limited period per their
+policy. <strong>[ATTORNEY REVIEW REQUIRED]</strong> — set and document specific retention
+periods for backups and logs.</p>
+<h2>7. Children</h2>
+<p>Rats is intended for users aged 13 and older, and skateboarding content can
+appeal to younger users. We do not knowingly collect personal information
+from children under 13. We do not currently ask for date of birth or run an
+age gate. If we learn we have collected data from a child under 13 without
+verifiable parental consent, we will delete it. See the Terms of Service for
+the eligibility requirement. <strong>[ATTORNEY REVIEW REQUIRED]</strong> — COPPA (US),
+UK Age-Appropriate Design Code, GDPR age-of-consent, and app-store age
+ratings almost certainly require an age gate and/or parental-consent flow
+before public launch; this is a launch blocker to resolve with counsel.</p>
+<h2>8. Security</h2>
+<p>Access to your data is enforced at the database with row-level security and
+column-level permissions: precise location is never returned to other users,
+only you and admins can see privileged data, and administrative actions are
+authorized on the server and logged. Media buckets restrict which file types
+can be uploaded. Passwords are handled entirely by our authentication
+provider; we never see them.</p>
+<p><em>Known limitation (disclosed honestly):</em> image uploads have their metadata
+stripped, but <strong>video files are not yet metadata-stripped</strong> — a clip could
+still carry a camera-embedded location tag in its container. We mitigate this
+by never exposing per-post precise coordinates through the API and by the
+park geofence, and metadata stripping for video is on the pre-launch list.
+<strong>[ATTORNEY REVIEW REQUIRED]</strong> / engineering follow-up.</p>
+<p>No method of storage or transmission is 100% secure.</p>
+<h2>9. Contact</h2>
+<p>Questions or requests: <strong>[ATTORNEY REVIEW REQUIRED — insert a monitored
+contact email/address].</strong></p>
+<h2>10. Changes</h2>
+<p>We may update this policy as the app changes. Material changes will be
+signaled in-app. The "Last updated" date above always reflects the current
+version.</p>
+</div>
+<footer>
+<a href="privacy.html">Privacy</a>·<a href="terms.html">Terms</a>·<a href="community.html">Community</a>·<a href="copyright.html">Copyright</a>
+</footer>
+</div></body></html>
