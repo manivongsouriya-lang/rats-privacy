@@ -56,7 +56,7 @@ Rats uses your device's location to:
   ~150–200 meter geofence check). Posting a clip does <strong>not</strong> use your
   location: you can only post a clip to a park you have already stamped, and
   the app does not read GPS or photo/video location metadata when you post;
-- count a park visit toward "Local" status (you become a Local after 15
+- count a park visit toward "Local" status (you become a Local after 10
   separate visits, each at least 18 hours apart) — checked only while the app
   is open in the foreground;
 - detect the park you are at so you can join its battle queue;
@@ -73,7 +73,8 @@ Clips posted before September 3, 2026 may also carry a <code>posts.author_locati
 coordinate recorded under the earlier posting geofence; new clips do not
 record a location, and that legacy column is covered by the same
 never-exposed rule above. Coordinates are also sent to Google (see §4) to
-render maps and, for a new park submission, to look up an address.</p>
+render maps. When you submit a new park, the address text you type (not
+your location) is sent to OpenCage to look up its map position.</p>
 <p><strong>Photos and videos you choose to upload.</strong> Skate clips (video), profile
 pictures, park-submission photos, and optional bug-report screenshots. The
 app only ever accesses the single file you actively pick; it does not scan or
@@ -108,10 +109,11 @@ safety. We do not use your data for advertising and do not sell it.</p>
 <ul>
 <li><strong>Supabase</strong> — our database, file storage, and authentication provider
   (data processor). Receives everything above as our backend.</li>
-<li><strong>Google Maps / Places</strong> — receives location coordinates and address text
-  to render maps and resolve park addresses. Governed by Google's own
-  privacy policy. The address-lookup call is proxied through our server so
-  our Google API key is not exposed.</li>
+<li><strong>Google Maps</strong> — receives map coordinates to render the map.
+  Governed by Google's own privacy policy.</li>
+<li><strong>OpenCage</strong> — receives the address text you type when submitting a new
+  park, to look up its map position. It does not receive your location. The
+  call is made from our server, so our API key is not exposed.</li>
 <li><strong>Expo / Apple Push (APNs) / Google (FCM)</strong> — deliver push notifications
   when you enable them; they receive your push token and the notification
   content.</li>
