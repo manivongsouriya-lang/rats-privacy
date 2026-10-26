@@ -30,13 +30,13 @@ footer a{margin:0 8px}
 <header><a href="./">&larr; Rats policies</a></header>
 <div class="card">
 <h1>Rats — Privacy Policy</h1>
-<p><strong>Last updated: October 16, 2026</strong>
-<strong>Status: Public beta</strong></p>
+<p><strong>Last updated: October 25, 2026</strong>
+<strong>Version: 1.0</strong></p>
 <p>Rats ("Rats," "we," "us") is a skatepark stampbook and social app for
 skateboarders. This policy describes exactly what the app collects, why,
 where it goes, and how you control it. It is written to match what the code
 actually does. </p>
-<p>Rats is a free beta. It has no ads, no advertising SDKs, and no third-party
+<p>Rats is a free app. It has no ads, no advertising SDKs, and no third-party
 analytics or tracking SDKs. We do not sell your data.</p>
 <h2>1. Who is responsible for your data</h2>
 <p>Rats is operated by Rats App LLC, a New York limited liability company ("Rats,"
@@ -53,36 +53,38 @@ bio, avatar URL).</p>
 <p><strong>Location — precise device GPS, used at the moment of an action.</strong>
 Rats uses your device's location to:
 - verify you are physically at a skatepark before you can "stamp" it (a
-  ~150–200 meter geofence check). Posting a clip does <strong>not</strong> use your
+  ~150–200 meter geofence check). Posting a clip to a park does <strong>not</strong> use your
   location: you can only post a clip to a park you have already stamped, and
-  the app does not read GPS or photo/video location metadata when you post;
+  the app does not read photo/video location metadata when you post;
+- check your location once when you make a World post (a clip not tagged
+  to a park), to see whether any skatepark is within 50 miles;
 - count a park visit toward "Local" status (you become a Local after 10
   separate visits, each at least 18 hours apart) — checked only while the app
   is open in the foreground;
-- detect the park you are at so you can join its battle queue;
+- detect the park you are at so you can join its battle queue, and confirm
+  both players are at the park when a battle starts;
 - show nearby parks on the map and, with your permission, center the map on
   you.</p>
-<p>We store the coordinate captured at the instant you stamp or log a visit,
-as anti-cheat evidence that the action really happened at the park.
-<strong>These precise coordinates are never exposed through the app's API to other
-users</strong> — a public check-in reveals the skatepark, not your exact position.
-The raw visit-location log is readable only by you. We do not run any
-continuous or background location tracking.
-<em>Stored in:</em> <code>stamps.checkin_location</code>, <code>park_visits.checkin_location</code>.
-Clips posted before September 3, 2026 may also carry a <code>posts.author_location</code>
-coordinate recorded under the earlier posting geofence; new clips do not
-record a location, and that legacy column is covered by the same
-never-exposed rule above. Coordinates are also sent to Google (see §4) to
+<p><strong>We do not store your coordinates.</strong> The one exception is a park pin you choose to place with “Use my current location” when submitting a park (see Park submissions below). Each location check happens on our
+server at the moment of the action — for example, "is this point within 200
+meters of the park?" — and the coordinate is discarded as soon as it has been
+checked. What we keep is only the result: that you stamped or visited a
+particular park, and when. For battles, we keep which park you were at and
+when (never a coordinate) for about 10 minutes, so a battle can confirm both
+players are at the park. We do not run any continuous or background location
+tracking. Coordinates are also sent to Google (see §4) to
 render maps. When you submit a new park, the address text you type (not
 your location) is sent to OpenCage to look up its map position.</p>
 <p><strong>Photos and videos you choose to upload.</strong> Skate clips (video), profile
-pictures, park-submission photos, and optional bug-report screenshots. The
+pictures, and optional bug-report screenshots. The
 app only ever accesses the single file you actively pick; it does not scan or
 upload your library in the background. Before upload, we re-encode images to
 strip embedded metadata, including any GPS coordinates in the photo's EXIF.
-<em>Stored in:</em> Supabase Storage buckets (<code>posts</code>, <code>avatars</code>, <code>parks</code>,
-<code>bug-screenshots</code>). Uploaded media is served from public, unguessable URLs so
-it can appear in the feed. See §8 for how we handle location metadata in videos.</p>
+<em>Stored in:</em> Supabase Storage buckets (<code>posts</code>, <code>avatars</code>,
+<code>bug-screenshots</code>). Profile photos are public. Clips are stored privately and
+shown through short-lived links only to people allowed to see the post.
+Bug-report screenshots are private to you and our admins. See §8 for how we handle location metadata in videos.</p>
+<p><strong>Park submissions.</strong> When you submit a new skatepark, we store its name, address, indoor/outdoor setting, map position, and your account as the submitter. If you tap “Use my current location,” your device’s current position becomes the park’s map position and is kept as part of the park listing, and your phone’s built-in address lookup (Apple on iPhone, Google on Android) receives that position to fill in the address. You also take a verification photo through the app. That photo is used only by our admins to confirm the park is real and correctly placed: it is stored privately, never shown to other users, and permanently deleted once the submission is approved or rejected, or if you delete your account first. Once a park is approved, its details are visible to signed-in users and your username is shown on the park page as its “Founding Rat.” If you delete your account, a pending submission is withdrawn, and an approved park stays listed, credited to an anonymized placeholder instead of you.</p>
 <p><strong>Content you create.</strong> Captions, comments, your bio, stamps, follows,
 blocks, mutes, battle records, and crowns. These power the social features
 and are shown to other signed-in users according to your settings.</p>
@@ -100,6 +102,22 @@ service and for security. We do not use this for advertising or profiling.</p>
 background location, advertising identifiers, or behavioral analytics. The
 date of birth you enter at sign-up is checked on your device only and is not
 sent to or stored by Rats (see §7).</p>
+<p><strong>Cookies and on-device storage.</strong> The Rats app does not use cookies, and it
+contains no analytics, advertising, or tracking technology. The app stores a
+small amount of information on your phone so that it works and remembers your
+choices: your login session (encrypted, with its key kept in your phone's
+secure keystore — iOS Keychain / Android Keystore), your clip sound on/off
+setting, which intro, safety, and celebration screens you have already seen,
+and the list of
+accounts you have hidden from your feed on that device. This information stays
+on your phone and is not used to track you. Signing out removes the login
+session; deleting the app removes the rest. (An iPhone may keep the session's
+encryption key in its Keychain after the app is deleted — on its own it is
+useless, because the encrypted session it unlocks is deleted with the app.) Our policy
+web pages (including this one) set no cookies and run no scripts. They are
+hosted by GitHub Pages, which — like any web host — receives your IP address
+and basic request details when you load a page, and handles them under
+<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's own privacy statement</a>.</p>
 <h2>3. How we use your information</h2>
 <p>Only to operate the app's features: verifying park visits, showing your
 content to the people you have chosen to share it with, sending notifications
@@ -109,16 +127,29 @@ safety. We do not use your data for advertising and do not sell it.</p>
 <ul>
 <li><strong>Supabase</strong> — our database, file storage, and authentication provider
   (data processor). Receives everything above as our backend.</li>
-<li><strong>Google Maps</strong> — receives map coordinates to render the map.
-  Governed by Google's own privacy policy.</li>
+<li><strong>Google Maps</strong> — receives map coordinates (and, when the map shows
+  where you are, your device's location) to render the map. Google handles
+  this under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>; using the map is also
+  subject to the Google Maps terms (see <a href="terms.html">Terms of Service</a> §14).</li>
 <li><strong>OpenCage</strong> — receives the address text you type when submitting a new
   park, to look up its map position. It does not receive your location. The
   call is made from our server, so our API key is not exposed.</li>
+<li><strong>Apple (iPhone) / Google (Android) address lookup</strong> — receives your device’s position only if you tap “Use my current location” when submitting a park, to fill in the street address. This is your phone’s built-in service, governed by Apple’s or Google’s own privacy policy.</li>
 <li><strong>Expo / Apple Push (APNs) / Google (FCM)</strong> — deliver push notifications
   when you enable them; they receive your push token and the notification
   content.</li>
 </ul>
-<p>We do not share your data with any other third party, and none of these are
+<p><strong>Copyright claims and legal requirements.</strong> If someone sends us a copyright
+notice about content you posted, we may give you a copy of it (including the
+sender's contact details) so you can respond. If you send us a DMCA
+counter-notice, the law requires us to send a copy of it — including your
+name, address, telephone number, and email address — to the person who filed
+the original notice. See our <a href="copyright.html">DMCA Copyright Policy</a>. We may
+also disclose information where we are legally required to, including reporting
+apparent child sexual abuse material, and the account that posted it, to the
+National Center for Missing & Exploited Children (NCMEC), as US law requires.</p>
+<p>Apart from the providers above and these legal cases, we do not share your
+data with any other third party, and none of these are
 permitted to use it for their own purposes beyond providing their service.</p>
 <p><strong>Business transfers.</strong> Rats was originally built and run by its founder
 personally and is now operated by Rats App LLC; information collected before that
@@ -144,27 +175,44 @@ these in-app; for anything else, contact us (§9). </p>
 deletion, personal data is removed or anonymized as described in §5. Server
 security logs are retained by our provider for a limited period per their
 policy. </p>
+<p>Some records are kept after the content or account they relate to is
+deleted, because we need them to enforce our rules, meet legal obligations
+(such as our repeat-infringer policy), and respond to claims: moderation
+records (what was removed or restricted, when, and why), reports other people
+made about your content or account (including a snapshot of the reported
+caption, comment, or profile text), copyright notices and counter-notices we receive, records of
+which policy versions you accepted and when, and — if an account is banned — a
+one-way, salted hash of its email address, used only to flag a new sign-up
+with the same email. Content reported as sexual content involving a minor is hidden right away
+and preserved, even if it or its account is deleted, for 90 days while we
+review it, or for 1 year if we report it to NCMEC, as US law requires.
+It is then deleted.</p>
 <h2>7. Children</h2>
 <p>Rats is for adults aged 18 and older. We do not knowingly collect personal
 information from anyone under 18. Sign-up asks for your date of birth. That
 date is checked on your device and is <strong>not</strong> transmitted to or stored by
 Rats; we record only a timestamp (<code>profiles.age_verified_at</code>) showing that the
-check was passed and whether you are 18 or older. An account cannot be
+check was passed — only someone 18 or older can pass it. An account cannot be
 created if the check fails, and our servers independently refuse sign-ups not
-marked 18+. If we learn that an account belongs to someone under 18, we will
-delete that account and its data. See the Terms of Service for the eligibility requirement.</p>
+marked 18+. If, despite these checks, we learn that we have collected personal information
+from someone under 18 (for example, through a report or a moderator's review), we
+will delete that account and its personal information promptly and ban it from
+Rats. To enforce the ban we keep only a record of the moderation action and a
+one-way, salted hash of the account's email address (see §6), used solely to flag
+a new sign-up with the same email. If you believe someone under 18 is using Rats,
+report their profile in the app or email <a href="mailto:ratsappcontact@gmail.com">ratsappcontact@gmail.com</a>. See the Terms of Service for the eligibility requirement.</p>
 <h2>8. Security</h2>
 <p>Access to your data is enforced at the database with row-level security and
 column-level permissions: precise location is never returned to other users,
 only you and admins can see privileged data, and administrative actions are
 authorized on the server and logged. Media buckets restrict which file types
 can be uploaded. Passwords are handled entirely by our authentication
-provider; we never see them.</p>
-<p><em>Known limitation (disclosed honestly):</em> image uploads have their metadata
-stripped, but <strong>video files are not yet metadata-stripped</strong> — a clip could
-still carry a camera-embedded location tag in its container. We mitigate this
-by never exposing per-post precise coordinates through the API and by the
-park geofence, and metadata stripping for video is on the pre-launch list.
+provider; we never see them. On your phone, your login session is stored
+encrypted, with its key kept in the device's secure keystore (iOS Keychain /
+Android Keystore).</p>
+<p><em>Metadata:</em> photos and videos have their embedded metadata — including any
+camera-recorded location — removed on your device before upload (videos since
+October 24, 2026; clips posted before then were cleaned the same day).
 </p>
 <p>No method of storage or transmission is 100% secure.</p>
 <h2>9. Contact</h2>
@@ -175,6 +223,6 @@ signaled in-app. The "Last updated" date above always reflects the current
 version.</p>
 </div>
 <footer>
-<a href="privacy.html">Privacy</a>·<a href="terms.html">Terms</a>·<a href="community.html">Community</a>·<a href="copyright.html">Copyright</a>
+<a href="privacy.html">Privacy</a>·<a href="terms.html">Terms</a>·<a href="community.html">Community</a>·<a href="copyright.html">Copyright / DMCA</a>
 </footer>
 </div></body></html>
